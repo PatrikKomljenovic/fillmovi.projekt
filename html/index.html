@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Najbolji filmovi</title>
+    <link rel="stylesheet" href="stil.css">
+
+</head>
+<body class="drama">
+    <h1>Najbolji filmovi po žanru</h1>
+    
+    <div id="zanrovi">
+        <button onclick="prikaziFilmove('drama')">Drama</button>
+        <button onclick="prikaziFilmove('akcija')">Akcija</button>
+        <button onclick="prikaziFilmove('komedija')">Komedija</button>
+        <button onclick="prikaziFilmove('horor')">Horor</button>
+    </div>
+
+    <div id="filmovi" class="film-container">
+        <!-- Filmovi će biti dinamički dodani ovdje prema podacima iz baze -->
+    </div>
+
+    <script>
+        function prikaziFilmove(zanr) {
+            document.body.className = zanr;
+            document.getElementById('filmovi').innerHTML = '';
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('filmovi').innerHTML = this.responseText;
+                }
+            };
+
+            xhr.open("GET", "php.php?zanr=" + zanr, true);
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
